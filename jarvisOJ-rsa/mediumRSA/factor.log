@@ -1,0 +1,39 @@
+08/09/18 20:38:31 v1.34.5 @ Dp, 
+08/09/18 20:38:31 v1.34.5 @ Dp, ****************************
+08/09/18 20:38:31 v1.34.5 @ Dp, Starting factorization of 87924348264132406875276140514499937145050893665602592992418171647042491658461
+08/09/18 20:38:31 v1.34.5 @ Dp, using pretesting plan: normal
+08/09/18 20:38:31 v1.34.5 @ Dp, no tune info: using qs/gnfs crossover of 95 digits
+08/09/18 20:38:31 v1.34.5 @ Dp, ****************************
+08/09/18 20:38:31 v1.34.5 @ Dp, rho: x^2 + 3, starting 1000 iterations on C77
+08/09/18 20:38:31 v1.34.5 @ Dp, rho: x^2 + 2, starting 1000 iterations on C77
+08/09/18 20:38:31 v1.34.5 @ Dp, rho: x^2 + 1, starting 1000 iterations on C77
+08/09/18 20:38:31 v1.34.5 @ Dp, pm1: starting B1 = 150K, B2 = gmp-ecm default on C77
+08/09/18 20:38:31 v1.34.5 @ Dp, current ECM pretesting depth: 0.00
+08/09/18 20:38:31 v1.34.5 @ Dp, scheduled 30 curves at B1=2000 toward target pretesting depth of 23.69
+08/09/18 20:38:32 v1.34.5 @ Dp, Finished 30 curves using Lenstra ECM method on C77 input, B1=2K, B2=gmp-ecm default
+08/09/18 20:38:32 v1.34.5 @ Dp, current ECM pretesting depth: 15.18
+08/09/18 20:38:32 v1.34.5 @ Dp, scheduled 74 curves at B1=11000 toward target pretesting depth of 23.69
+08/09/18 20:38:34 v1.34.5 @ Dp, Finished 74 curves using Lenstra ECM method on C77 input, B1=11K, B2=gmp-ecm default
+08/09/18 20:38:34 v1.34.5 @ Dp, current ECM pretesting depth: 20.24
+08/09/18 20:38:34 v1.34.5 @ Dp, scheduled 149 curves at B1=50000 toward target pretesting depth of 23.69
+08/09/18 20:38:49 v1.34.5 @ Dp, Finished 149 curves using Lenstra ECM method on C77 input, B1=50K, B2=gmp-ecm default
+08/09/18 20:38:49 v1.34.5 @ Dp, final ECM pretested depth: 23.72
+08/09/18 20:38:49 v1.34.5 @ Dp, scheduler: switching to sieve method
+08/09/18 20:38:49 v1.34.5 @ Dp, starting SIQS on c77: 87924348264132406875276140514499937145050893665602592992418171647042491658461
+08/09/18 20:38:49 v1.34.5 @ Dp, random seeds: 753719947, 4131554354
+08/09/18 20:38:49 v1.34.5 @ Dp, ==== sieve params ====
+08/09/18 20:38:49 v1.34.5 @ Dp, n = 77 digits, 256 bits
+08/09/18 20:38:49 v1.34.5 @ Dp, factor base: 36160 primes (max prime = 919693)
+08/09/18 20:38:49 v1.34.5 @ Dp, single large prime cutoff: 78173905 (85 * pmax)
+08/09/18 20:38:49 v1.34.5 @ Dp, allocating 6 large prime slices of factor base
+08/09/18 20:38:49 v1.34.5 @ Dp, buckets hold 2048 elements
+08/09/18 20:38:49 v1.34.5 @ Dp, using 32k sieve core
+08/09/18 20:38:49 v1.34.5 @ Dp, sieve interval: 10 blocks of size 32768
+08/09/18 20:38:49 v1.34.5 @ Dp, polynomial A has ~ 10 factors
+08/09/18 20:38:49 v1.34.5 @ Dp, using multiplier of 1
+08/09/18 20:38:49 v1.34.5 @ Dp, using SPV correction of 19 bits, starting at offset 27
+08/09/18 20:38:49 v1.34.5 @ Dp, using SSE2 for trial division and x64 sieve scanning
+08/09/18 20:38:49 v1.34.5 @ Dp, using SSE4.1 enabled 32k sieve core
+08/09/18 20:38:49 v1.34.5 @ Dp, using SSE2 for resieving 13-16 bit primes
+08/09/18 20:38:49 v1.34.5 @ Dp, trial factoring cutoff at 91 bits
+08/09/18 20:38:49 v1.34.5 @ Dp, ==== sieving started (1 thread) ====

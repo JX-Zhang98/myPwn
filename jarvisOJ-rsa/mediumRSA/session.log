@@ -1,0 +1,12 @@
+08/09/18 20:38:22 v1.34.5 @ Dp, System/Build Info: 
+Using GMP-ECM 6.4.4, Powered by GMP 5.1.1
+cached 78498 primes. pmax = 999983
+detected Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+detected L1 = 32768 bytes, L2 = 6291456 bytes, CL = 64 bytes
+measured cpu frequency ~= 2591.853360
+using 20 random witnesses for Rabin-Miller PRP checks
+
+08/09/18 20:38:22 v1.34.5 @ Dp, New random seeds: 1698261180, 1624863578
+
+08/09/18 20:38:31 v1.34.5 @ Dp, Processing expression: factor(0xC2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD)
+
