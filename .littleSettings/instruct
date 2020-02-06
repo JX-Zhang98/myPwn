@@ -1,6 +1,12 @@
 #!/bin/bash
 
 sudo apt-get install git
+# 配置git
+git config --global user.name "JX-Zhang98"
+git config --global user.email "1773262526@qq.com"
+ssh-keygen -t rsa -C "1773262526@qq.com"
+ssh -T git@github.com
+cat .ssh/id_rsa.pub 
 
 # 安装支持
 sudo apt-get install libncurses5-dev libgnome2-dev
@@ -20,10 +26,10 @@ cd vim
     --enable-rubyinterp --enable-luainterp --enable-perlinterp --enable-multibyte --enable-cscope \
     --prefix=/usr/share/vim/
 
-make VIMRUNTIMEDIR=/usr/share/vim/share/vim/vim81/
+make VIMRUNTIMEDIR=/usr/share/vim/vim81/
 sudo make install
 whereis vim
-sudo ln -s /usr/share/vim/bin/vim /usr/bin/vim
+sudo ln -s /usr/share/vim /usr/bin/vim
 
 # 搞Vundle&YCM
 # ref https://blog.csdn.net/qq_33505303/article/details/68131862?locationNum=15&fps=1
@@ -36,11 +42,11 @@ git submodule update --init --recursive
 # 如果报错删除空文件夹
 
 sudo apt-get install libclang-dev
-./install.py --clang-completer --system-libclang
+python3 ./install.py --clang-completer --system-libclang
 #如果报错，先安装删除waitress再执行
 #cregex如果报错，删除之
 # https://blog.csdn.net/Xiao_CangTian/article/details/89506674
-python3 ./install.py 
+# python3 ./install.py 
 # download ycm_extra_conf.py to where vimrc points to
 # 创建
 
@@ -84,7 +90,8 @@ sudo apt install zsh
 sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 wget https://codeload.github.com/powerline/fonts/zip/master
 cd fonts-master && ./install.sh
-# recommand theme:
+# ubuntu 需要更换字体 Noto Mono for Powerline
+# recommand theme:agnoster
 # https://mimosa-pudica.net/zsh-incremental.html
 '''体验并不太好
 wget http://mimosa-pudica.net/src/incr-0.2.zsh   
@@ -121,3 +128,8 @@ docker run -d -h ctf --name pwndock -v /home/jx:/root -p 2  3946:23946 --cap-add
 docker exec -it pwndock /bin/zsh
 
 sudo apt-get install wine
+
+# vscode
+# 保存vscode配置
+# Setting Sync,使用github进行同步
+# ref https://www.cnblogs.com/Sweepingmonk/p/10868786.html
