@@ -1,0 +1,1 @@
+stderr.write(stderr.__class__("flag").read())
