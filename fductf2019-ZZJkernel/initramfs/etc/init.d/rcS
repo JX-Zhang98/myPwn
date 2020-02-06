@@ -1,0 +1,25 @@
+#!/bin/sh
+
+echo "IF9fX19fIF9fX18gIF8gICBfICBfX19fIF9fX19fIF9fX19fIAp8ICBfX198ICBfIFx8IHwgfCB8
+LyBfX198XyAgIF98ICBfX198CnwgfF8gIHwgfCB8IHwgfCB8IHwgfCAgICAgfCB8IHwgfF8gICAK
+fCAgX3wgfCB8X3wgfCB8X3wgfCB8X19fICB8IHwgfCAgX3wgIAp8X3wgICB8X19fXy8gXF9fXy8g
+XF9fX198IHxffCB8X3wgICAgCgpXZWxjb21lIHRvIFpaSidzIHRpbnkgc3lzdGVtISBCdXQgeW91
+J3JlIG5vdCByb290LiBFbmpveSA6KQo=" | base64 -d
+
+mount -t proc none /proc
+mount -t devtmpfs none /dev
+mkdir /dev/pts
+mount /dev/pts
+
+insmod /home/pwn/baby.ko
+chmod 666 /dev/baby
+
+echo 1 > /proc/sys/kernel/dmesg_restrict
+echo 1 > /proc/sys/kernel/kptr_restrict
+
+cd /home/pwn
+chown -R 1000:1000 .
+setsid cttyhack setuidgid 1000 sh
+
+umount /proc
+poweroff -f
