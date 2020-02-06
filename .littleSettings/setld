@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# set -euxo pipefail
+
+elf=$1
+version=$2
+
+if [[ $(file $elf) =~ "64-bit" ]]
+then
+    arch=64
+elif [[ $(file $elf) =~ "32-bit" ]]
+then
+    arch=32
+else
+    echo "wrong elf format"
+    echo "usage: setld (elf) (version)"
+    exit 1
+fi  
+ldpath=/tmp/ld-$version.so
+
+if [[ $(file $ldpath) =~ "ELF" ]]
+then
+    rm $ldpath
+fi
+cp /glibc/$version/$arch/lib/ld-$version.so /tmp/ld-$version.so
+patchelf --set-interpreter $ldpath $elf
+echo "done"

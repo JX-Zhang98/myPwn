@@ -1,0 +1,204 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ 
+set nocompatible              " be iMproved, required
+filetype off                  " required
+"设置Vundle的运行路径并初始化
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" Vundle安装位置与插件路径不同时，需要Vundle插件的路径
+"call vundle#begin('~/some/path/here')
+"------------------要安装的插件不能写在此行前！------------------
+ 
+"Vundle对自己的调用，不可删去
+Plugin 'VundleVim/Vundle.vim'
+"以下是所支持的各种不同格式的示例
+"需要安装的插件应写在调用的vundle#begin和vundle#end之间
+"如果插件托管在Github上，写在下方，只写作者名/项目名就行了
+ 
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'majutsushi/tagbar'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline' 
+"如果插件来自vim-scripts(官方)，写插件名就行了
+" Plugin 'L9'
+ 
+"如果Git仓库不在Github上，需要提供完整的链接
+" Plugin 'git://git.wincent.com/command-t.git'
+ 
+"本地的插件需要提供文件路径
+" Plugin 'file:///home/gmarik/path/to/plugin'
+"一定要确保插件就在提供路径的文件夹中(没有子文件夹，直接在这层目录下)
+"运行时目录的路径
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"避免插件间的命名冲突
+"Plugin 'ascenator/L9', {'name': 'newL9'}
+"------------------要安装的插件不能写在此行后！------------------
+call vundle#end()            " required
+filetype plugin indent on    " required
+"要忽略插件缩进更改，请改用：
+"filetype plugin on
+"
+" 安装插件的相关指令
+":PluginList			- 列出已安装插件
+":PluginInstall			- 安装新添加的插件;添加`!`或使用`:PluginUpdate`来更新已安装插件
+":PluginSearch xxx		- 寻找名字带有xxx的插件;添加`!`刷新本地缓存
+":PluginClean			- 删除已经从列表移除的插件;添加`!`静默卸载
+":h						- 帮助和说明文档 
+"Vundle的设置到此为止了
+"
+"theme :"
+"https://link.zhihu.com/?target=http%3A//bytefluent.com/vivify/
+colorscheme herald
+set nocompatible              " be iMproved, required
+set nu!                       "显示行号
+filetype on                   "检测文件的类型
+syntax on                     "语法高亮度显示
+set autoindent                "vim使用自动对齐，也就是把当前行的对齐格式应用到下一行(自动缩进）
+set backspace=indent,eol,start       "退格键
+set cindent                   "（cindent是特别针对 C语言语法自动缩进）
+
+set smartindent                    "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
+set expandtab
+set tabstop=4                 "设置tab键为4个空格，
+set softtabstop=4
+set shiftwidth=4
+set mouse=a           "启用鼠标"
+"set mouse=nv         "？复制和定位？
+set cursorline        "突出显示当前行"
+set cursorcolumn        "突出显示当前列"
+highlight CursorLine cterm=none ctermbg=236
+highlight CursorColumn cterm=none ctermbg=236
+
+
+set t_ti= t_te=                        "退出后终仍显示内容"
+set so=7                "光标上下两侧最少保留屏幕行数"
+
+"set list lcs=tab:\|\        用字符显示tab"
+"打开后光标位于推出位置
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"YouCompleteMe 插件配置
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf=0
+let g:ycm_python_binary_path ='/usr/bin/python3.6'
+set completeopt=longest,menu
+"是否开启语义补全"
+let g:ycm_seed_identifiers_with_syntax=1
+""是否在注释中也开启补全"
+let g:ycm_complete_in_comments=1
+let g:ycm_collect_identifiers_from_comments_and_strings=1 
+"开始补全的字符数"
+let g:ycm_min_num_of_chars_for_completion=2
+""补全后自动关机预览窗口"
+let g:ycm_autoclose_preview_window_after_completion=1
+"字符串中也开启补全"
+let g:ycm_complete_in_strings=1
+"自动补全颜色设置"
+hi Pmenu ctermfg=black ctermbg=gray  guibg=#444444
+hi PmenuSel ctermfg=7 ctermbg=4 guibg=#555555 guifg=#ffffff
+
+"括号颜色"
+hi MatchParen ctermbg=Yellow guibg=lightblue
+"如果要背景透明，在.vim文件中将ctermbg值全部变成NONE"
+"在.vim文件中修改Pmenu 和 PmenuSel属性的颜色改变提示框值"
+"括号引号补全
+:inoremap ( ()<ESC>i
+":inoremap ) <c-r>=ClosePair(')')<CR>
+":inoremap { {}<ESC>i
+":inoremap } <c-r>=ClosePair('}')<CR>
+":inoremap [ []<ESC>i
+":inoremap ] <c-r>=ClosePair(']')<CR>
+":inoremap <ESC>i
+":inoremap ' ''<ESC>i
+function! AutoPair(open, close)
+    let line = getline('.')
+    "if col('.') > strlen(line) || line[col('.') - 1] == ' '
+    return a:open.a:close."\<ESC>i"
+    "else
+    ""return a:open
+    "endif
+endf
+
+function! ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endf
+
+function! CloseQuote(lft, rgt)
+    let line = getline('.')
+    if line[col('.') - 1] == a:rgt
+        return "\<Right>"
+    else
+        return a:lft.a:rgt."\<ESC>i"
+    endif
+endf
+
+
+"inoremap ( <c-r>=AutoPair('(', ')')<CR>
+inoremap ) <c-r>=ClosePair(')')<CR>
+inoremap [ <c-r>=AutoPair('[', ']')<CR>
+inoremap ] <c-r>=ClosePair(']')<CR>
+inoremap { <c-r>=AutoPair('{', '}')<CR>
+inoremap } <c-r>=ClosePair('}')<CR>
+inoremap ' <c-r>=CloseQuote("'", "'")<CR>
+inoremap " <c-r>=CloseQuote('"', '"')<CR>
+
+":inoremap " ""<ESC>i
+":inoremap ' ''<ESC>i
+
+
+"文件头补全"
+function HeaderPython()
+    call setline(1, "#!/usr/bin/env python")
+    call append(1, "# -*- coding: utf-8 -*-")
+    call append(2, "# ")
+    call append(3, "from pwn import *")
+    call append(4, "#context.log_level = 'debug'")
+    call append(5, "context.terminal = ['deepin-terminal', '-x', 'sh', '-c']")
+    call append(6, "context.binary = './pwn'")
+    call append(7, "success = lambda name, value: log.success('{} -> {:#x}'.format(name, value))")
+    call append(8, "def debug():")
+    call append(9, "    if local == 0:")
+    call append(10, "        return")
+    call append(11, "    binaryname = str(context.binary).split('/')[-1].replace("')", '')")
+    call append(12, "    interruptPoint=[]")
+    call append(13, "    pid = int(os.popen('pgrep {}'.format(binaryname)).readlines()[-1])")
+    call append(14, "    maps = os.popen('cat /proc/{}/maps'.format(pid))")
+    call append(15, "    ELFaddr = 0")
+    call append(16, "    libcaddr = 0")
+    call append(17, "    for inf in maps.readlines():")
+    call append(18, "        if ELFaddr == 0:")
+    call append(19, "            if binaryname in inf:")
+    call append(20, "                ELFaddr = int(inf.split('-', 1)[0], 16)")
+    call append(21, "        if libcaddr == 0:")
+    call append(22, "            if 'libc' in inf:")
+    call append(23, "                libcaddr = int(inf.split('-', 1)[0], 16)")
+    call append(24, "    info('pid : {}'.format(pid)")
+    call append(25, "    success('elfbase', ELFaddr)")
+    call append(26, "    success('libcbase', libcaddr)")
+    call append(27, "    if len(interruptPoint) :")
+    call append(28, "        for p in interruptPoint:")
+    call append(29, "            success('interruptPoint', p+ELFaddr)")
+    call append(30, "    raw_input('debug>')")
+    call append(31, "")
+    call append(32, "local = 1")
+    normal G
+    normal o
+endf
+function HeaderShell()
+    call setline(1, "#!/usr/bin/env bash")
+    call append(1, "# set -euxo pipefail")
+    normal G
+    normal o
+endf
+
+autocmd bufnewfile *.sh call HeaderShell()
+autocmd bufnewfile *.py call HeaderPython()
+
+""hi Normal ctermbg=none

@@ -1,0 +1,123 @@
+#!/bin/bash
+
+sudo apt-get install git
+
+# 安装支持
+sudo apt-get install libncurses5-dev libgnome2-dev
+sudo apt-get install python-dev
+sudo apt-get install python3-dev
+sudo apt-get install build-essential cmake
+# 安装YouCompleteMe
+## 改装vim with Python support
+## ref:https://blog.csdn.net/a464057216/article/details/52821171
+sudo dpkg -P vim vim-common vim-runtime vim-tiny
+git clone https://github.com/vim/vim.git
+
+cd vim
+# vim 不能使用python2和3同时的支持
+./configure --with-features=huge \
+    --enable-python3interp=yes --with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
+    --enable-rubyinterp --enable-luainterp --enable-perlinterp --enable-multibyte --enable-cscope \
+    --prefix=/usr/share/vim/
+
+make VIMRUNTIMEDIR=/usr/share/vim/share/vim/vim81/
+sudo make install
+whereis vim
+sudo ln -s /usr/share/vim/bin/vim /usr/bin/vim
+
+# 搞Vundle&YCM
+# ref https://blog.csdn.net/qq_33505303/article/details/68131862?locationNum=15&fps=1
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# 这里需要先复制.vimrc 文件
+# 粘贴vimrc文件，执行:PluginInstall
+cd ~/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive
+# 如果报错删除空文件夹
+
+sudo apt-get install libclang-dev
+./install.py --clang-completer --system-libclang
+#如果报错，先安装删除waitress再执行
+#cregex如果报错，删除之
+# https://blog.csdn.net/Xiao_CangTian/article/details/89506674
+python3 ./install.py 
+# download ycm_extra_conf.py to where vimrc points to
+# 创建
+
+# vim配好之后
+#pip 换源
+sudo apt-get install python-pip
+sudo pip install pwntools
+# 创建~/.vim/bundle/YouCompleteMe/cd third_party/ycmd/cpp/ycm/.ycm_extra_conf.py
+# 完善vimrc
+
+
+# 可以升级
+# 重新编译安装gdb以使用pwndbg
+mkdir build ; cd build
+../gdb.xx/configure --with-python=/usr/bin/python2.7 #2.7即可
+make 
+sudo make install
+# install 出现的error忽略，能用就行
+
+安装 pwndbg 
+git clone https://github.com/pwndbg/pwndbg
+cd pwndbg
+./setup.sh
+# 安装完成后如果出现no gdb, run:
+    sudo mv ~/Desktop/gdb-8.2/gdb/python/lib/gdb/* /usr/local/share/gdb/python/gdb/
+    # ref:https://www.cnblogs.com/Dennis-mi/p/5870801.html
+    # 3.6的gdb缺失元素问题暂未解决
+添加Pwngdb
+# 添加ruby支持，安装onegadget
+sudo apt-get install ruby-full
+gem install one_gadget
+# 安装main_arena
+wget -q -O- https://raw.githubusercontent.com/bash-c/main_arena_offset/master/install.sh | sh
+# bat
+https://github.com/sharkdp/bat/releases
+sudo apt install gdebi
+sudo gdebi bat_0.5.0_amd64.deb
+
+# zsh
+sudo apt install zsh
+sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+wget https://codeload.github.com/powerline/fonts/zip/master
+cd fonts-master && ./install.sh
+# recommand theme:
+# https://mimosa-pudica.net/zsh-incremental.html
+'''体验并不太好
+wget http://mimosa-pudica.net/src/incr-0.2.zsh   
+cd ~/.oh-my-zsh/plugins/ && mkdir incr
+mv incr-0.2.zsh ~/.oh-my-zsh/plugins/incr
+# add 'source ~/.oh-my-zsh/plugins/incr/incr*.zsh' to .zshrc
+source ~/.zshrc
+'''
+# 使用自动补全插件可能会与vim的提示功能相冲突，如会报以下错误：
+# $ vim t
+# _arguments:451: _vim_files: function definition file not found
+# 解决方法：将~/.zcompdump*删除即可
+# $ rm -rf ~/.zcompdump*
+# $ exec zsh
+
+# 32位运行库
+sudo dpkg --add-architecture i386
+sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386
+
+#docker
+#ref : https://wiki.deepin.org/wiki/Docker
+# dcker run instruction:
+docker pull skysider/pwndocker
+# docker run -d --rm -h ${ctf_name} --name ${ctf_name} -v $(pwd)/${ctf_name}:/ctf/work -p 23946:23946 --cap-add=SYS_PTRACE skysider/pwndocker
+# -d 后台运行容器，并返回容器id
+# --rm 容器停止后自动删除容器
+# -h 容器的主机名
+# --name 指定容器的名字
+# -v 挂载到容器的某个目录
+# -p 容器暴露端口号
+# --cap-add 添加权限
+
+docker run -d -h ctf --name pwndock -v /home/jx:/root -p 2  3946:23946 --cap-add=SYS_PTRACE skysider/pwndocker
+docker exec -it pwndock /bin/zsh
+
+sudo apt-get install wine
