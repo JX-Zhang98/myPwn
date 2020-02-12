@@ -71,3 +71,21 @@ pip install --upgrade tensorflow-cpu
 deactive
 
 # 配置vim
+
+# angr
+# ref:https://github.com/a7vinx/angr-doc-zh_CN/blob/master/INSTALL.md
+sudo apt-get install python3-dev libffi-dev build-essential  -y
+sudo pip3 install virtualenvwrapper # mkvirturalenv command not found now
+echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3 \ export WORKON_HOME=$HOME/.virtualenvs" > ~/.zshrc
+echo "source $(whereis virturalenvwrapper.sh)" > ~/.zshrc
+source ~/.zshrc
+mkvirtualenv --python=$(which python3) angr && pip install angr 
+# 后面进入虚拟环境使用workon命令
+workon angr
+# 退出环境：deactivate 
+# 删除环境: rmvirtualenv
+sudo apt-get install angr
+python3
+    import angr
+git clone https://github.com/angr/angr-dev
+./setup.sh -i -p angr
