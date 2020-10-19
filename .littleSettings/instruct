@@ -36,13 +36,13 @@ sudo ln -s /usr/share/vim /usr/bin/vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # 这里需要先复制.vimrc 文件
-# 粘贴vimrc文件，执行:PluginInstall
+# 粘贴vimrc文件，执行:PluginInstall # 走代理速度快，出错少
 cd ~/.vim/bundle/YouCompleteMe
 git submodule update --init --recursive
 # 如果报错删除空文件夹
 
 sudo apt-get install libclang-dev
-python3 ./install.py --clang-completer --system-libclang
+python3 ./install.py # --clang-completer --system-libclang
 #如果报错，先安装删除waitress再执行
 #cregex如果报错，删除之
 # https://blog.csdn.net/Xiao_CangTian/article/details/89506674
@@ -75,6 +75,7 @@ cd pwndbg
     # ref:https://www.cnblogs.com/Dennis-mi/p/5870801.html
     # 3.6的gdb缺失元素问题暂未解决
 添加Pwngdb
+git clone https://github.com/scwuaptx/Pwngdb.git
 # 添加ruby支持，安装onegadget
 sudo apt-get install ruby-full
 gem install one_gadget
@@ -124,7 +125,7 @@ docker pull skysider/pwndocker
 # -p 容器暴露端口号
 # --cap-add 添加权限
 
-docker run -d -h ctf --name pwndock -v /home/jx:/root -p 2  3946:23946 --cap-add=SYS_PTRACE skysider/pwndocker
+docker run -d -h ctf --name pwndock -v /home/jx:/root -p 23946:23946 --cap-add=SYS_PTRACE skysider/pwndocker
 docker exec -it pwndock /bin/zsh
 
 sudo apt-get install wine

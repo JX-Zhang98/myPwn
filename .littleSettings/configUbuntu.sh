@@ -1,20 +1,29 @@
 # 换源
 # 切中文
-# upgrade
+# upgrade **在软件更新中安装核心组件更新**
+# 升级后可能无法进入桌面，在grub 页按e，在启动选项倒数第二项后加 splash nomodeset，按F10进入后进入
+sudo apt-get autoremove open-vm-tools
+sudo apt-get install open-vm-tools-desktop
 # 基本环境
 sudo apt-get install gcc g++ libncurses5-dev libgnome2-dev python-dev python3-dev build-essential cmake 
-sudo apt-get install python-pip pyhon3-pip vim ;# vim 直安支持py3，无需另编译安装
+sudo apt-get install python-pip python3-pip vim ;# vim 直安支持py3，无需另编译安装
 fix pip
 # 
 # pip 换源
+'''
+[global] 
+index-url = http://mirrors.aliyun.com/pypi/simple/
+[install] 
+trusted-host=mirrors.aliyun.com
+'''
 sudo python3 fixpip.py; sudo python fixpip.py
 sudo apt-get install bpython3 bpython
 
 # 配置git
 git config --global user.name "JX-Zhang98"
-git config --global user.email "1773262526@qq.com"
-ssh-keygen -t rsa -C "1773262526@qq.com"
-ssh -T git@github.com
+git config --global user.email "jx_zhang98@qq.com"
+ssh-keygen -t rsa -C "jx_zhang98@qq.com"
+# ssh -T git@github.com
 cat .ssh/id_rsa.pub 
 
 # 32位运行库
@@ -22,16 +31,23 @@ sudo dpkg --add-architecture i386
 sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386
 
 # deepin-terminal
-git clone https://github.com/linuxdeepin/deepin-terminal
-mv deepin-terminal /usr/share/
-cd /usr/share/deepin-terminal
-sudo mkdir build; sudo cd build;sudo cmake ..;sudo make;
-sudo make install
+git clone https://github.com/linuxdeepin/deepin-terminal-old #based on GTK instead of DTK
+
+sudo apt-get update
+sudo apt-get install valac cmake g++ intltool libgtk-3-dev libgee-0.8-dev libjson-glib-dev libsecret-1-dev libwnck-3-dev librsvg2-dev libreadline-dev libpcre2-dev gobject-introspection libgirepository1.0-dev gperf libxml2-utils
+sudo apt-get install libatk1.0-0 libc6 libcairo-gobject2 libcairo2 libfontconfig1 libgdk-pixbuf2.0-0 libgee-0.8-2 libglib2.0-0 libgnutls30 libgtk-3-0 libice6 libjson-glib-1.0-0 libpango-1.0-0 libpangocairo-1.0-0 libpcre2-8-0 libreadline7 librsvg2-2 libsecret-1-0 libsm6 libstdc++6 libtinfo5 libwnck-3-0 libx11-6 libxext6 zlib1g lrzsz expect deepin-menu
+sudo cp -r deepin-terminal-old /usr/share/
+cd deepin-terminal-old
+sudo mkdir build; cd build; sudo cmake ..; sudo make;
+# make install #cp binary to /usr/bin/ 
+
 sudo add-apt-repository ppa:daniel-marynicz/filemanager-actions
 sudo apt-get update
 sudo apt-get install filemanager-actions-nautilus-extension
 fma-config-tool
 # ref:https://blog.csdn.net/bestBT/article/details/81221378
+gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/deepin-terminal
+gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
 
 
 # zsh
@@ -39,8 +55,9 @@ sudo apt install zsh
 sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 # 出现wget无法建立ssl链接的问题
 wget https://codeload.github.com/powerline/fonts/zip/master
+unzip master
 cd fonts-master && ./install.sh
-# 更换字体 Noto Mono for Powerline
+# 更换字体 Noto Mono for Powerline (agnoster)
 
 # vscode 
 # 保存vscode配置
@@ -49,13 +66,14 @@ cd fonts-master && ./install.sh
 
 # 美化
 # ref：https://magiclen.org/macbuntu-18-04/
+sudo add-apt-repository ppa:noobslab/macbuntu
 sudo apt install gnome-tweak-tool gnome-shell-extensions  slingscold albert macbuntu-os-plank-theme-v1804 
-# sudo apt-get install macbuntu-os-icons-v1804 macbuntu-os-ithemes-v1804 libreoffice-style-sifr macbuntu-os-plank-theme-v1804
 # gnome-tweak-tool即gnome-tweaks; 扩充套件即扩展
 https://www.youtube.com/watch?v=sT1MHarE9Wo
+# 美化登录页面
 
-# 美化开机登录页
-# ref：https://blog.csdn.net/white_idiot/article/details/88931162
+# 美化开机页 # 虚拟机无用
+# ref：https://blog.csdn.net/weixin_44145894/article/details/105130336
 
 # tensorflow
 # aliyun
